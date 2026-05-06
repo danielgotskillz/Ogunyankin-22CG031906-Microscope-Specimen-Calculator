@@ -4,7 +4,15 @@ from database import engine, SessionLocal
 from models import Base, Calculation
 from calculator import calculate_real_size, MICROSCOPE_FACTORS
 
-app = Flask(__name__, template_folder="../frontend/templates", static_folder="../frontend/static")
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, "../frontend/templates"),
+    static_folder=os.path.join(BASE_DIR, "../frontend/static")
+)
 CORS(app)
 
 Base.metadata.create_all(bind=engine)
@@ -64,5 +72,8 @@ def delete_all():
     db.close()
     return jsonify({"message": "All records deleted"})
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
