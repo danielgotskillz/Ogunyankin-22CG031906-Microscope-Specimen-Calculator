@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Microscope Calculator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>🔬 Microscope Specimen Size Calculator</h1>
+
+<form id="calcForm">
+    <input type="text" name="username" placeholder="Enter Username" required>
+
+    <input type="file" name="image" required>
+
+    <input type="number" step="any" name="image_size" placeholder="Measured Size" required>
+
+    <select name="microscope">
+        {% for m in microscopes %}
+        <option value="{{m}}">{{m}}</option>
+        {% endfor %}
+    </select>
+
+    <select name="unit">
+        <option value="nm">nm</option>
+        <option value="µm">µm</option>
+        <option value="mm">mm</option>
+        <option value="cm">cm</option>
+        <option value="m">m</option>
+    </select>
+
+    <button type="submit">Calculate</button>
+</form>
+
+<div id="result"></div>
+
+<h2>Saved Records</h2>
+<button onclick="loadRecords()">Load Records</button>
+<button onclick="deleteRecords()">Delete All</button>
+
+<table id="recordsTable"></table>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
